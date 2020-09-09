@@ -1,38 +1,59 @@
-import React, { Component } from 'react';
-import VideoPlayer from 'react-video-js-player';
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import "../App.css";
+import {
+    BrowserRouter as Router,
+    Link,
 
- 
-class video extends Component {
-   
-    player = {}
-    state = {
-        video: {
-            src: "https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4",
-            poster: "http://www.example.com/path/to/video_poster.jpg"
-        }
-    }
- 
-    onPlayerReady(player){
-        console.log("Player is ready: ", player);
-        player.currentTime(99)
-        this.player = player;
-    } 
-    render() {
-        console.log("props"+JSON.stringify(this.props))
-        return (
-            <div>
-                <VideoPlayer
-                    controls={true}
-                    src={this.state.video.src}
-                    poster={this.state.video.poster}
-                    width="720"
-                    height="420"
-                    onReady={this.onPlayerReady.bind(this)}
-                    
+} from "react-router-dom";
+export default function Home(props) {
 
-                />
-            </div>
-        );
-    }
+    
+    useEffect(() => {
+        axios.get('http://172.20.0.1:6969/videodata', { withCredentials: true })
+            .then(res => {
+                console.log("movedata" + JSON.stringify(res.data))
+                var moviearray =[]
+                res.data.forEach(element => {
+                    console.log("ddd")
+                    moviearray.push(<Moviecard key={element.id} name={element.name} image={"https://placekitten.com/g/64/64"} id={element.id} />)
+                })
+                setmoviejson(moviearray)
+                
+            })
+            .catch((error) => {
+                console.log("getmoveerror")
+
+            });
+
+            
+    }, []);
+
+
+    const [moviejson, setmoviejson] = useState(false);
+ 
+
+    return (
+      moviejson
+    );
 }
-export default video
+
+function Moviecard(prop) {
+    return (
+        <div className="card">
+
+
+            <a href={"http://172.20.0.1:6969/video/" + prop.id} style={{ textDecoration: "none" }}>
+                <img className="image" src="https://placekitten.com/g/64/64" alt="movieposter" />
+                <div className="container">
+
+                    <h4><b>{prop.name}</b></h4>
+                </div>
+            </a>
+        </div>
+    )
+}
+
+
+
+

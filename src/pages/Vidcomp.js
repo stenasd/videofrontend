@@ -1,26 +1,35 @@
 import React, { Component } from 'react';
 import VideoPlayer from 'react-video-js-player';
+import "../App.css";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useParams
+} from "react-router-dom";
 
- 
-class video extends Component {
-   
+class Video extends Component {
+
     player = {}
     state = {
         video: {
-            src: "https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4",
+            src: "http://172.20.0.1:6969/video/2",
             poster: "http://www.example.com/path/to/video_poster.jpg"
         }
     }
- 
-    onPlayerReady(player){
+
+    onPlayerReady(player) {
         console.log("Player is ready: ", player);
-        player.currentTime(99)
+        player.currentTime(44)
         this.player = player;
-    } 
+    }
     render() {
-        console.log("props"+JSON.stringify(this.props))
+        console.log("props" + JSON.stringify(this.props))
         return (
             <div>
+
+                <h3>ID: {this.props.id}</h3>
                 <VideoPlayer
                     controls={true}
                     src={this.state.video.src}
@@ -28,11 +37,24 @@ class video extends Component {
                     width="720"
                     height="420"
                     onReady={this.onPlayerReady.bind(this)}
-                    
+
 
                 />
             </div>
         );
     }
 }
-export default video
+
+function Child() {
+    // We can use the `useParams` hook here to access
+    // the dynamic pieces of the URL.
+    let { id } = useParams();
+
+    return (
+        <div>
+            <Video id={id} />        
+        </div>
+    );
+}
+
+export default Child
