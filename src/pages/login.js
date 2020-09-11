@@ -6,7 +6,7 @@ export default function PersonList() {
     const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        axios.get('http://172.20.0.1:6969/checkAuthentication',{ withCredentials: true })
+        axios.get('/api/checkAuthentication',{ withCredentials: true })
             .then(res => {
                 console.log("authenticated")
                 setLoggedIn(res.data.authenticated);
@@ -22,7 +22,7 @@ export default function PersonList() {
     }
     return (
         <div>
-            <form action="http://172.20.0.1:6969/login" method="post">
+            <form action="/api/login" method="post">
                 <div>
                     <label>Username:</label>
                     <input type="text" name="username" /><br />

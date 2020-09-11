@@ -14,7 +14,7 @@ class Video extends Component {
     player = {}
     state = {
         video: {
-            src: "http://172.20.0.1:6969/video/2",
+            src: "/api/video/2",
             poster: "http://www.example.com/path/to/video_poster.jpg"
         }
     }

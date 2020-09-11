@@ -10,7 +10,7 @@ export default function Home(props) {
 
     
     useEffect(() => {
-        axios.get('http://172.20.0.1:6969/videodata', { withCredentials: true })
+        axios.get('/api/videodata', { withCredentials: true })
             .then(res => {
                 console.log("movedata" + JSON.stringify(res.data))
                 var moviearray =[]
@@ -43,7 +43,7 @@ function Moviecard(prop) {
         <div className="card">
 
 
-            <a href={"http://172.20.0.1:6969/video/" + prop.id} style={{ textDecoration: "none" }}>
+            <a href={"/api/video/" + prop.id} style={{ textDecoration: "none" }}>
                 <img className="image" src="https://placekitten.com/g/64/64" alt="movieposter" />
                 <div className="container">
 

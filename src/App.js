@@ -45,7 +45,7 @@ function Home() {
     const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        axios.get('http://172.20.0.1:6969/checkAuthentication', { withCredentials: true })
+        axios.get('/api/checkAuthentication', { withCredentials: true })
             .then(res => {
                 console.log("authenticated")
                 setLoggedIn(res.data.authenticated);
@@ -59,7 +59,11 @@ function Home() {
     return (
         <div>
             {loggedIn ? (
-                <Movielist/>
+                <div>
+                    
+                    <Movielist/>
+                    </div>
+                
             ) : (
                     <div>
                         <Link to="/signup">
