@@ -22,7 +22,7 @@ export default function App() {
                 {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
                 <Switch>
-                    <Route path="/video:id" children={<Videocomp />} />
+                    <Route path="/video:id" children={<Videocomp src="/api/video/2"/>} />
                     <Route path="/login">
 
                         <Login />

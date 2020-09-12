@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
 import VideoPlayer from 'react-video-js-player';
 import "../App.css";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useParams
-} from "react-router-dom";
-
-class Video extends Component {
-
+class VideoApp extends Component {
     player = {}
     state = {
         video: {
@@ -19,42 +10,55 @@ class Video extends Component {
         }
     }
 
-    onPlayerReady(player) {
+    onPlayerReady(player){
         console.log("Player is ready: ", player);
-        player.currentTime(44)
         this.player = player;
     }
+
+    onVideoPlay(duration){
+        console.log("Video played at: ", duration);
+    }
+
+    onVideoPause(duration){
+        console.log("Video paused at: ", duration);
+    }
+
+    onVideoTimeUpdate(duration){
+        console.log("Time updated: ", duration);
+    }
+
+    onVideoSeeking(duration){
+        console.log("Video seeking: ", duration);
+    }
+
+    onVideoSeeked(from, to){
+        console.log(`Video seeked from ${from} to ${to}`);
+    }
+
+    onVideoEnd(){
+        console.log("Video ended");
+    }
+
     render() {
-        console.log("props" + JSON.stringify(this.props))
         return (
             <div>
-
-                <h3>ID: {this.props.id}</h3>
                 <VideoPlayer
+                      src="/api/video/4.mp4" type="video/mp4"
                     controls={true}
-                    src={this.state.video.src}
+                    className="videoclass"
                     poster={this.state.video.poster}
                     width="720"
                     height="420"
                     onReady={this.onPlayerReady.bind(this)}
-
-
+                    onPlay={this.onVideoPlay.bind(this)}
+                    onPause={this.onVideoPause.bind(this)}
+                    onTimeUpdate={this.onVideoTimeUpdate.bind(this)}
+                    onSeeking={this.onVideoSeeking.bind(this)}
+                    onSeeked={this.onVideoSeeked.bind(this)}
+                    onEnd={this.onVideoEnd.bind(this)}
                 />
             </div>
         );
     }
 }
-
-function Child() {
-    // We can use the `useParams` hook here to access
-    // the dynamic pieces of the URL.
-    let { id } = useParams();
-
-    return (
-        <div>
-            <Video id={id} />        
-        </div>
-    );
-}
-
-export default Child
+export default VideoApp;
