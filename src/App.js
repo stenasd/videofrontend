@@ -22,7 +22,7 @@ export default function App() {
                 {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
                 <Switch>
-                    <Route path="/video:id" children={<Videocomp src="/api/video/2"/>} />
+                    <Route path="/video/:id/:time" children={<Videocomp/>} />
                     <Route path="/login">
 
                         <Login />
@@ -45,6 +45,7 @@ function Home() {
     const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
+        
         axios.get('/api/checkAuthentication', { withCredentials: true })
             .then(res => {
                 console.log("authenticated")
