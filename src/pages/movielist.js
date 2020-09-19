@@ -8,33 +8,44 @@ import {
 } from "react-router-dom";
 export default function Home(props) {
 
-    
+
     useEffect(() => {
         axios.get('/api/videodata', { withCredentials: true })
             .then(res => {
                 console.log("movedata" + JSON.stringify(res.data))
-                var moviearray =[]
+                var moviearray = []
                 res.data.forEach(element => {
-                    console.log("ddd")
                     moviearray.push(<Moviecard key={element.id} name={element.name} image={"https://placekitten.com/g/64/64"} id={element.id} />)
                 })
                 setmoviejson(moviearray)
-                
+
+            })
+            .catch((error) => {
+                console.log("getmoveerror")
+
+            });
+        axios.get('/api/uservideodata', { withCredentials: true })
+            .then(res => {
+                console.log("movedata" + JSON.stringify(res.data.movarr))
+                var moviearray = []
+                res.data.movarr.forEach(element => {
+                    moviearray.push(<Moviecard key={element.id} name={element.time} image={"https://placekitten.com/g/64/64"} id={element.id} />)
+                })
+                setusermovie(moviearray)
+
             })
             .catch((error) => {
                 console.log("getmoveerror")
 
             });
 
-            
     }, []);
 
 
     const [moviejson, setmoviejson] = useState(false);
- 
+    const [usermovie, setusermovie] = useState(false);
 
-    return (
-      moviejson
+    return (usermovie
     );
 }
 
